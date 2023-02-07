@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+""" Generate markdown contents"""
 from faker import Faker
 from mdgen import MarkdownPostProvider
 

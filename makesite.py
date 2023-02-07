@@ -34,12 +34,12 @@ import glob
 import sys
 import json
 import datetime
-
+import commonmark
 
 def fread(filename):
     """Read file and close the file."""
-    with open(filename, 'r') as f:
-        return f.read()
+    with open(filename, 'r', encoding="utf-8") as file:
+        return file.read()
 
 
 def fwrite(filename, text):
@@ -48,8 +48,8 @@ def fwrite(filename, text):
     if not os.path.isdir(basedir):
         os.makedirs(basedir)
 
-    with open(filename, 'w') as f:
-        f.write(text)
+    with open(filename, 'w', encoding="utf-8") as file:
+        file.write(text)
 
 
 def log(msg, *args):
@@ -72,8 +72,8 @@ def read_headers(text):
 
 def rfc_2822_format(date_str):
     """Convert yyyy-mm-dd date string to RFC 2822 format date string."""
-    d = datetime.datetime.strptime(date_str, '%Y-%m-%d')
-    return d.strftime('%a, %d %b %Y %H:%M:%S +0000')
+    date = datetime.datetime.strptime(date_str, '%Y-%m-%d')
+    return date.strftime('%a, %d %b %Y %H:%M:%S +0000')
 
 
 def read_content(filename):
@@ -100,12 +100,11 @@ def read_content(filename):
     # Convert Markdown content to HTML.
     if filename.endswith(('.md', '.mkd', '.mkdn', '.mdown', '.markdown')):
         try:
-            if _test == 'ImportError':
+            if _TEST == 'ImportError':
                 raise ImportError('Error forced by test')
-            import commonmark
             text = commonmark.commonmark(text)
-        except ImportError as e:
-            log('WARNING: Cannot render Markdown in {}: {}', filename, str(e))
+        except ImportError as err:
+            log('WARNING: Cannot render Markdown in {}: {}', filename, str(err))
 
     # Update the dictionary with content and RFC 2822 date.
     content.update({
@@ -167,7 +166,7 @@ def make_list(posts, dst, list_layout, item_layout, **params):
 
 
 def main():
-    # Create a new _site directory from scratch.
+    """Create a new _site directory from scratch."""
     if os.path.isdir('_site'):
         shutil.rmtree('_site')
     shutil.copytree('static', '_site')
@@ -225,7 +224,7 @@ def main():
 
 
 # Test parameter to be set temporarily by unit tests.
-_test = None
+_TEST = None
 
 
 if __name__ == '__main__':
