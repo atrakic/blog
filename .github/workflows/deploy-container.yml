@@ -1,10 +1,14 @@
-name: sync-container
+# Commit to remote repo which would new trigger container image build.
+name: deploy-container
+
 on:
   workflow_dispatch:
   push:
     branches: ["master"]
+
 permissions:
   contents: read
+
 jobs:
   sync:
     runs-on: ubuntu-latest
