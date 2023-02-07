@@ -1,8 +1,12 @@
+SHELL := /bin/bash
+
 site: generate-blog
 	./makesite.py
 
+LOOPS = 10
 generate-blog: ## Generate random blogs
-	 for ((i=1;i<=10;i++));do  python ./scripts/generate.py > content/blog/$(shell date -I)-$$i.md; done
+	set -ex
+	for ((i=1;i<=${LOOPS};i++)) do python ./scripts/generate.py > content/blog/$(shell date -I)-$$i.md; done
 
 serve: site
 	if python3 -c 'import http.server' 2> /dev/null; then \
