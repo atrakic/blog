@@ -1,6 +1,6 @@
 {
-  "base_path": "/static",
+  "base_path": "/static-generator",
   "subtitle": "Foo&Bar",
   "author": "pwNd",
-  "site_url": "https://atrakic.github.io/static"
+  "site_url": "https://atrakic.github.io/static-generator"
 }

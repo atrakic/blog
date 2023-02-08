@@ -42,7 +42,7 @@ jobs:
       - name: Install Dependencies
         run: python3.10 -m pip install -r requirements.txt --upgrade
 
-      - name: Confifure site
+      - name: Configure GH site
         run: cp -f config/params.json .
 
       - name: Generate site
