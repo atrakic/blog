@@ -6,7 +6,7 @@ site: generate-blog
 LOOPS = 10
 generate-blog: ## Generate random blogs
 	set -ex
-	for ((i=1;i<=${LOOPS};i++)) do python ./scripts/generate.py > content/blog/$(shell date -I)-$$i.md; done
+	for ((i=1;i<=${LOOPS};i++)) do python3 ./scripts/generate.py > content/blog/$(shell date -I)-$$i.md; done
 
 serve: site
 	if python3 -c 'import http.server' 2> /dev/null; then \
